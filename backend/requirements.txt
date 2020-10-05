@@ -1,0 +1,7 @@
+Flask==1.1.2
+Flask-Cors==3.0.8
+pandas
+matplotlib
+textblob
+tweepy
+bs4

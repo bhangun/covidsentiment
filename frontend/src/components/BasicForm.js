@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BasicForm() {
-  const url = "http://localhost:5000/api/submit";
+  const url = "http://149.129.245.30/api/submit";
   const classes = useStyles();
   const [form, setForm] = useState({ payload: "" });
   const [result, setResult] = useState({

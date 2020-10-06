@@ -8,7 +8,7 @@ import pandas as pd
 
 
 app = Flask(__name__)
-CORS(app)
+#CORS(app)
 api = Blueprint('api', __name__)
 
 @api.route('/coba', methods=['GET'])

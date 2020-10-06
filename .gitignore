@@ -14,7 +14,7 @@ node_modules/
 npm-debug.log.*
 /.awcache/*
 /.cache-loader/*
-backend/__pycache__/
+backend/__pycache__/*
 
 ######################
 # SASS

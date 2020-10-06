@@ -11,6 +11,10 @@ app = Flask(__name__)
 CORS(app)
 api = Blueprint('api', __name__)
 
+@api.route('/coba', methods=['GET'])
+def coba():
+    return "bismillah"
+
 @api.route('/submit', methods=['POST'])
 def handle_submit():
     print(request.form['payload'])

@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BasicForm() {
   const url = "http://localhost:5000/api/submit";
   const classes = useStyles();
-  const [identity, setIdentity] = useState({ payload: "" });
+  const [form, setForm] = useState({ payload: "" });
   const [result, setResult] = useState({
     "polarity":0.0,
     "tags": [],
@@ -32,32 +32,18 @@ export default function BasicForm() {
     "sentiment_assessments":[],
     "tokenize":[],
     "language":""
-});
+  });
 
   const [success, setSuccess] = useState(null);
 
   function handleInput(e) {
-    setIdentity({ ...identity, payload: e.target.value });
+    setForm({ ...form, payload: e.target.value });
   }
-
-  /* function handleInputLastName(e) {
-    setIdentity({ ...identity, lastName: e.target.value });
-  }
-
-  function handleInputJob(e) {
-    console.log(e.target.value)
-    setJob(e.target.value);
-  } */
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(e,'-------',success)
     const data = new FormData();
-    data.set("payload", identity.payload);
-   // data.set("lastName", identity.lastName);
-    // data.set("job", job);
-
-    // console.log(success)
+    data.set("payload", form.payload);
 
     axios({
       method: "post",
@@ -66,7 +52,7 @@ export default function BasicForm() {
     })
       .then(function (response) {
         const res = response.data
-        console.log(res.tags);
+       
         setResult({
             "polarity":res.polarity,
             "tags": res.tags,
@@ -77,7 +63,7 @@ export default function BasicForm() {
             "tokenize":res.tokenize,
             "language": res.language
         })
-        console.log(result);
+        console.log('>>>>>>>>>>>>>',result);
         setSuccess(true);
       })
       .catch(function (response) {
@@ -110,7 +96,7 @@ export default function BasicForm() {
               id="payload"
               label="Masukan teks... "
               fullWidth={false}
-              value={identity.payload}
+              value={form.payload}
               onChange={handleInput}
               variant="outlined"
             />

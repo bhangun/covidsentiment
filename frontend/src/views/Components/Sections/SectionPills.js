@@ -18,7 +18,7 @@ import BasicForm from "../../../components/BasicForm.js";
 
 const useStyles = makeStyles(styles);
 
-export default function SectionPills() {
+export const SectionPills =({ success,handleInput,handleSubmit,...props})=> {
   const classes = useStyles();
   return (
     <div className={classes.section}>
@@ -36,14 +36,14 @@ export default function SectionPills() {
                     tabButton: "Text",
                     tabIcon: NotesIcon,
                     tabContent: (
-                      <BasicForm />
+                      <BasicForm handleInput={handleInput} handleSubmit={handleSubmit} success={success}/>
                     )
                   },
                   {
                     tabButton: "URL",
                     tabIcon: LanguageIcon,
                     tabContent: (
-                      <BasicForm />
+                      <BasicForm handleInput={handleInput} handleSubmit={handleSubmit} success={success}/>
                     )
                   },
                   /* {
@@ -67,3 +67,5 @@ export default function SectionPills() {
     </div>
   );
 }
+
+export default SectionPills

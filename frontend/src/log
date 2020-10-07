@@ -1,0 +1,26 @@
+
+word: ["this", "good"]
+word_count: {good: 1, this: 1}
+tags: [["this", "DT"], ["good", "JJ"]]
+noun_phrases :[]
+sentiment: 
+0 0.7
+1 0.6000000000000001
+2 Array (1)
+0 Array (4)
+0 Array (1)
+0 "good"
+
+Array Prototype
+1 0.7
+2 0.6000000000000001
+3 null
+
+
+
+0 "this"
+1 "good"
+
+Array Prototype
+"en"
+"this good"

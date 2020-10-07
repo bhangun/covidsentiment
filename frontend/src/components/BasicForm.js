@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
 
-import axios from "axios";
+// import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -19,11 +19,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicForm() {
-  // const url = "http://149.129.245.30/api/submit";
-  const url = "http://localhost:5000/api/submit";
+export const BasicForm=({ success, handleInput,handleSubmit }) =>{
   const classes = useStyles();
   const [form, setForm] = useState({ payload: "" });
+
+  function _handleInput(e) {
+    setForm({ ...form, payload: e.target.value });
+    handleInput()
+  }
+  function _handleSubmit(e) {
+    e.preventDefault();
+    const data = new FormData();
+    data.set("payload", form.payload);
+    handleSubmit(data)
+  }
+  // const url = "http://149.129.245.30/api/submit";
+  /* const url = "http://localhost:5000/api/submit";
+  
+  
   const [result, setResult] = useState({
     "polarity":0.0,
     "positive":0.0,
@@ -39,9 +52,9 @@ export default function BasicForm() {
     "translation":""
   });
 
-  const [success, setSuccess] = useState(null);
+  const [success, setSuccess] = useState(null); */
 
-  function handleInput(e) {
+  /* function handleInput(e) {
     setForm({ ...form, payload: e.target.value });
   }
 
@@ -80,7 +93,7 @@ export default function BasicForm() {
         setSuccess(false);
         console.log(response);
       });
-  }
+  } */
 
   function Alerting() {
     if (success === true) {
@@ -94,7 +107,7 @@ export default function BasicForm() {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={_handleSubmit}>
         <Grid container justify="center">
           <Grid item  sm={12} md={6} lg={6} className={classes.input}>
             <TextField className={classes.margin} justify="center"
@@ -106,7 +119,7 @@ export default function BasicForm() {
               label="Masukan teks... "
               fullWidth={false}
               value={form.payload}
-              onChange={handleInput}
+              onChange={_handleInput}
               variant="outlined"
             />
              <div style={{ marginTop: 10 }}>
@@ -131,3 +144,5 @@ export default function BasicForm() {
     </Container>
   );
 }
+
+export default BasicForm

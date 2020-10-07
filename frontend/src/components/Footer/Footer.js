@@ -55,9 +55,7 @@ export default function Footer(props) {
         </div>
         <div className={classes.right}>
           &copy; {1900 + new Date().getYear()} , 
-          <a
-                href=""
-                
+          <a href="https://untirta.ac.id"
                 target="_blank"
               >Universitas Tirtayasa</a>
         </div>

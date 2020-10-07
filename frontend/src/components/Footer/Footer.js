@@ -55,9 +55,10 @@ export default function Footer({onClick, ...props}) {
         </div>
         <div className={classes.right}>
           &copy; {1900 + new Date().getYear()} , 
-          <a href="https://untirta.ac.id"
+          {/* <a href="https://untirta.ac.id"
                 target="_blank"
-              >Universitas Tirtayasa</a>
+              >Universitas Tirtayasa</a> */}
+              Rangga
         </div>
       </div>
     </footer>

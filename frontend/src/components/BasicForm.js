@@ -20,18 +20,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BasicForm() {
-  const url = "http://149.129.245.30/api/submit";
+  // const url = "http://149.129.245.30/api/submit";
+  const url = "http://localhost:5000/api/submit";
   const classes = useStyles();
   const [form, setForm] = useState({ payload: "" });
   const [result, setResult] = useState({
     "polarity":0.0,
+    "positive":0.0,
+    "negative":0.0,
+    "isHoax": "",
     "tags": [],
     "noun_phrases": [],
     "word_counts": {},
     "words":[],
     "sentiment_assessments":[],
     "tokenize":[],
-    "language":""
+    "language":"",
+    "translation":""
   });
 
   const [success, setSuccess] = useState(null);
@@ -55,13 +60,17 @@ export default function BasicForm() {
        
         setResult({
             "polarity":res.polarity,
+            "positive":res.positive,
+            "negative":res.negative,
+            "isHoax": res.isHoax,
             "tags": res.tags,
             "noun_phrases": res.noun_phrases,
             "word_counts": res.word_counts,
             "words":res.words,
             "sentiment_assessments":res.sentiment_assessments,
             "tokenize":res.tokenize,
-            "language": res.language
+            "language": res.language,
+            "translation":res.translation
         })
         console.log('>>>>>>>>>>>>>',result);
         setSuccess(true);
@@ -77,7 +86,7 @@ export default function BasicForm() {
     if (success === true) {
       return <Alert severity="success">Data terkirim!</Alert>;
     } else if (success === false) {
-      return <Alert severity="error">Mohon maaf terjadi kesalahan!</Alert>;
+      return <Alert severity="error">Mohon maaf terjadi kesalahan! Silahkan ulangi lagi</Alert>;
     } else {
       return null;
     }

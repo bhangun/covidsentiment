@@ -8,12 +8,13 @@ import pandas as pd
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+#CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app)
 api = Blueprint('api', __name__)
 
 @api.route('/coba', methods=['GET'])
 def coba():
-    return "bismillah"
+    return "bismillah coba"
 
 @api.route('/submit', methods=['POST'])
 def handle_submit():
@@ -29,6 +30,7 @@ def analisis(text):
     blob = TextBlob(text)
     lang = blob.detect_language()
     transl = ''
+    print(lang)
     if (lang != 'en'):
         transl = blob.translate(to='en')
     else:
@@ -37,9 +39,12 @@ def analisis(text):
     polarity=0
     for sentence in blob.sentences:
         polarity += sentence.sentiment.polarity
-
+    percent = round(polarity*100)
     result = jsonify({
-            "polarity":polarity*100,
+            "polarity":percent,
+            "positive": posneg(percent) ,
+            "negative": neg(percent) ,
+            "isHoax": is_hoax(percent),
             "tags": blob.tags,
             "noun_phrases": blob.noun_phrases,
             "word_counts": blob.word_counts,
@@ -50,6 +55,35 @@ def analisis(text):
             "translation":transl
         })
     return result
+
+def posneg(value):
+    if value > 0:
+        return value
+    elif value ==0:
+        return 100
+    else:
+        return (100+value)
+
+        
+def neg(value):
+    if value <0:
+        return value
+    elif value == 0:
+        return -100
+    else:    
+        return (100-value)*-1
+
+def is_hoax(value):
+    if value < 0 and value > -50 :
+        return "Ada kecenderungan konten Hoax"
+    elif value < 0 & value < -50 :
+        return "Patut diduga konten Hoax"
+    elif value > 0 & value > 50:
+        return "Patut diduga BUKAN konten Hoax"
+    elif value > 0 & value < 50:
+        return "Kemungkinan BUKAN konten Hoax"
+    else:
+        return "Netral"
 
 def translate(text):
     blob = TextBlob(text)

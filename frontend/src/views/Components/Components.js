@@ -50,7 +50,7 @@ export default function Components(props) {
         <SectionPills />
         {/* <SectionBasics /> */}
        
-        <ChartPosNeg />
+        {/* <ChartPosNeg /> */}
       </div>
       <Footer />
     </div>

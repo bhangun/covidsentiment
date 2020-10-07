@@ -17,8 +17,8 @@ services:
     build: ./backend
     expose:
       - 5000
-    ports:
-      - 80:5000
+    #ports:
+    #  - 80:5000
     volumes:
       - ./backend:/usr/src/app
     environment:

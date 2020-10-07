@@ -28,9 +28,9 @@ def handle_submit():
 
 def analisis(text):
     trans = translate(text)
-    blob = TextBlob(str(trans[0]))
+    blob = TextBlob(str(trans))
     #blob = TextBlob(text)
-    lang = trans[1]
+    lang = blob.detect_language()
     transl = ''
     polarity=0
     sentences = blob.sentences
@@ -52,16 +52,21 @@ def analisis(text):
             "isHoax": is_hoax(percent),
             "language":lang,
 
-            "tags": trans[2],
-            "noun_phrases": trans[3],
-            "word_counts": trans[4],
-            "words":trans[5],
-            "tokenize":trans[6],
-            "sentiment_assessments":trans[7],
-            "translation":trans[8]
+            "tags": blob.tags,
+            "noun_phrases": blob.noun_phrases,
+            "word_counts": blob.word_counts,
+            "words":blob.words,
+            "tokenize":blob.tokenize(),
+            "sentiment_assessments":blob.sentiment_assessments,
+            "translation":transl
 
         })
     return result
+
+def transblob(text):
+    blob = TextBlob(text)
+    #transl = blob.translate(to='en')
+    return blob
 
 def posneg(value):
     if value > 0:
@@ -94,18 +99,8 @@ def is_hoax(value):
 
 def translate(text):
     blob = TextBlob(text)
-    lang = blob.detect_language()
-    transl=''
-    if lang!='en':
-        transl = blob.translate(to='en')
-    
-
-    return [transl,lang,  blob.tags,
-             blob.noun_phrases,
-            blob.word_counts,
-            blob.words,
-           blob.tokenize(),
-            blob.sentiment_assessments,text]
+    transl = blob.translate(to='en')
+    return transl
     '''
     return {
             "tags": blob.tags,

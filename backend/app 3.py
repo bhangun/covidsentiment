@@ -27,41 +27,49 @@ def handle_submit():
         return analisis(payload)
 
 def analisis(text):
-    trans = translate(text)
-    blob = TextBlob(str(trans[0]))
-    #blob = TextBlob(text)
-    lang = trans[1]
+    blob = TextBlob(text)
+    #lang = blob.detect_language()
     transl = ''
     polarity=0
-    sentences = blob.sentences
+    #sentences = blob.sentences
     
     #if (lang != 'en'):
-    #    transl = blob.translate(to='en')
-    #    enBlob = transblob(transl)
-    #    sentences = enBlob.sentences
+    transl = blob.translate(to='en')
+    enBlob = transblob(str(transl))
+    blob = enBlob
+    sentences = enBlob.sentences
     
     for sentence in sentences:
         polarity += sentence.sentiment.polarity
 
     percent = round(polarity*100)
+
     print(percent)
+
     result = jsonify({
             "polarity":percent,
             "positive": posneg(percent) ,
             "negative": neg(percent) ,
             "isHoax": is_hoax(percent),
-            "language":lang,
+            #"language":lang,
 
-            "tags": trans[2],
-            "noun_phrases": trans[3],
-            "word_counts": trans[4],
-            "words":trans[5],
-            "tokenize":trans[6],
-            "sentiment_assessments":trans[7],
-            "translation":trans[8]
+            "tags": blob.tags,
+            "noun_phrases": blob.noun_phrases,
+            "word_counts": blob.word_counts,
+            "words":blob.words,
+            "tokenize":blob.tokenize(),
+            "sentiment_assessments":blob.sentiment_assessments,
+            "translation":transl
 
         })
     return result
+    
+    #return ''
+
+def transblob(text):
+    blob = TextBlob(text)
+    #transl = blob.translate(to='en')
+    return blob
 
 def posneg(value):
     if value > 0:
@@ -91,23 +99,12 @@ def is_hoax(value):
         return "Kemungkinan BUKAN konten Hoax"
     else:
         return "Netral"
-
+''''
 def translate(text):
     blob = TextBlob(text)
-    lang = blob.detect_language()
-    transl=''
-    if lang!='en':
-        transl = blob.translate(to='en')
-    
-
-    return [transl,lang,  blob.tags,
-             blob.noun_phrases,
-            blob.word_counts,
-            blob.words,
-           blob.tokenize(),
-            blob.sentiment_assessments,text]
-    '''
+    transl = blob.translate(to='en')
     return {
+        
             "tags": blob.tags,
             "noun_phrases": blob.noun_phrases,
             "word_counts": blob.word_counts,
@@ -116,8 +113,7 @@ def translate(text):
             "sentiment_assessments":blob.sentiment_assessments,
             "translation":transl
         }
-    '''
-
+'''
 
 app.register_blueprint(api, url_prefix='/api')
 

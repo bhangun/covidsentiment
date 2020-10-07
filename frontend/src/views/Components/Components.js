@@ -13,12 +13,17 @@ import SectionPills from "./Sections/SectionPills.js";
 import styles from "../../assets/jss/material-kit-react/views/components.js";
 import ResultChart from "./Sections/SectionChart.js";
 import axios from "axios";
+import TeamUntirta from "../TeamUntirta.js";
 
 const useStyles = makeStyles(styles);
 
 export default function Components(props) {
   const classes = useStyles();
   const { ...rest } = props;
+
+  const [page,setPage] = useState({
+    home:true,tentang:false
+  })
 
   const title = "Sentiment Analysis"
   const subtitle = " Pengembangan Aplikasi Sistem Cerdas Untuk Pendekteksi dan Penangkal Hoaks Seputar Covid-19 Dengan Intelligent Sentiment Analysis dan Intelligent Public Opinion Mining"
@@ -45,6 +50,14 @@ export default function Components(props) {
 
   function handleInput(e) {
     setChange(true);
+  }
+
+  function home(){
+    setPage({tentang:false,home:true})
+  }
+
+  function tentang(){
+    setPage({tentang:true,home:false})
   }
 
   function handleSubmit(data) {
@@ -80,14 +93,14 @@ export default function Components(props) {
       .catch(function (response) {
         setResult(response)
         setSuccess(false);
-        console.log(response);
+        // console.log(response);
       });
   }
   return (
     <div>
       <Header
         brand="Sentiment Analysis"
-        rightLinks={<HeaderLinks />}
+        rightLinks={<HeaderLinks onClick={home}/>}
         fixed
         color="transparent"
         changeColorOnScroll={{
@@ -95,6 +108,7 @@ export default function Components(props) {
           color: "white"
         }}
         {...rest}
+        onClick={home}
       />
       <Parallax image={require("../../assets/img/virus.png")}>
         <div className={classes.container}>
@@ -112,11 +126,13 @@ export default function Components(props) {
       </Parallax>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
+        {page.tentang ?<TeamUntirta />:
         <SectionPills handleInput={handleInput} handleSubmit={handleSubmit} success={success}/>
-        { change ?<ResultChart result={result}/>:<div/>
+        }
+        { change && page.home?<ResultChart result={result}/>:<div/>
         }
       </div>
-      <Footer />
+      <Footer onClick={tentang}/>
     </div>
   );
 }

@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 import json
 import os 
+import requests
 
 CONSUMER_KEY = 'k3zPF82jHHnHBzPGSqKmcIzg3'
 CONSUMER_SECRET = '9F2Ct5Bg35d8g2gW8MDOfL7rqF3BIAngFd7f3ZOsiGRrErQ9XY'
@@ -57,7 +58,7 @@ def analisis(text):
 
     print(blob.tokenize())
 
-    print(blob.definition)
+    #print(blob.definition)
 
     for sentence in blob.sentences:
         print(sentence.sentiment.polarity*100)

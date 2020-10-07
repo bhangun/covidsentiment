@@ -52,6 +52,14 @@ export const ResultTable =({result})=> {
         </TableHead>
 
         <TableBody>
+            <TableRow key="lang">
+                <TableCell >
+                    Language
+                </TableCell>
+                <TableCell >
+                <Badge color='warning'>{language}</Badge>
+                </TableCell>
+            </TableRow>
             <TableRow key="Words">
                 <TableCell >
                     Words
@@ -114,23 +122,14 @@ export const ResultTable =({result})=> {
                     )} 
                 </TableCell>
             </TableRow>
-            <TableRow key="lang">
-                <TableCell >
-                    Language
-                </TableCell>
-                <TableCell >
-                    {language}
-                </TableCell>
-            </TableRow>
-
-           {/*  <TableRow key="trans">
+            <TableRow key="trans">
                 <TableCell >
                     Translation
                 </TableCell>
                 <TableCell >
                     {translation}
                 </TableCell>
-            </TableRow>  */}
+            </TableRow> 
           
         </TableBody>
       </Table>

@@ -18,7 +18,7 @@ import styles from "../../assets/jss/material-kit-react/components/headerStyle.j
 
 const useStyles = makeStyles(styles);
 
-export default function Header(props) {
+export default function Header({onClick, ...props}) {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
@@ -60,7 +60,7 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
-  const brandComponent = <Button className={classes.title}>{brand}</Button>;
+  const brandComponent = <Button className={classes.title} onClick={onClick}>{brand}</Button>;
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>

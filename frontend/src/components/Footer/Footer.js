@@ -15,7 +15,7 @@ import styles from "../../assets/jss/material-kit-react/components/footerStyle.j
 
 const useStyles = makeStyles(styles);
 
-export default function Footer(props) {
+export default function Footer({onClick, ...props}) {
   const classes = useStyles();
   const { whiteFont } = props;
   const footerClasses = classNames({
@@ -32,17 +32,17 @@ export default function Footer(props) {
         <div className={classes.left}>
           <List className={classes.list}>
            
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href=""
+            <ListItem className={classes.inlineBlock} onClick={onClick}>
+            {/*   <a
+                href="/team"
                 className={classes.block}
                 target="_blank"
-              >
+              > */}
                Tentang Kami
-              </a>
+              {/* </a> */}
             </ListItem>
 
-            <ListItem className={classes.inlineBlock}>
+           {/*  <ListItem className={classes.inlineBlock}>
               <a
                 href=""
                 className={classes.block}
@@ -50,7 +50,7 @@ export default function Footer(props) {
               >
                 Licenses
               </a>
-            </ListItem>
+            </ListItem> */}
           </List>
         </div>
         <div className={classes.right}>

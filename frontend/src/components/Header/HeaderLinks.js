@@ -22,11 +22,11 @@ import styles from "../../assets/jss/material-kit-react/components/headerLinksSt
 
 const useStyles = makeStyles(styles);
 
-export default function HeaderLinks(props) {
+export default function HeaderLinks({onClick, ...props}) {
   const classes = useStyles();
   return (
     <List className={classes.list}>
-      <ListItem className={classes.listItem}>
+      {/* <ListItem className={classes.listItem}>
         <CustomDropdown
           noLiPadding
           buttonText="Module"
@@ -48,17 +48,17 @@ export default function HeaderLinks(props) {
             </a>
           ]}
         />
-      </ListItem>
-      {/* <ListItem className={classes.listItem}>
+      </ListItem> */}
+      <ListItem className={classes.listItem}>
         <Button
-          href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
+          onClick={onClick}
           color="transparent"
-          target="_blank"
+          
           className={classes.navLink}
         >
-          <CloudDownload className={classes.icons} /> Download
+           Home
         </Button>
-      </ListItem> */}
+      </ListItem>
       <ListItem className={classes.listItem}>
         {/*<Tooltip title="Delete">
           <IconButton aria-label="Delete">

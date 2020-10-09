@@ -31,6 +31,7 @@ def analisis(text):
     #polar = polar(trans[0])
     #blob = TextBlob(str(trans[0]))
     #blob = TextBlob(text)
+    print(trans)
     lang = trans[1]
     #transl = ''
     #polarity= polar(trans[0])
@@ -94,32 +95,28 @@ def is_hoax(value):
     else:
         return "Netral"
 
-def polar(text):
-    #print('>>>>>>>>>',text)
-    blob = TextBlob(str(text))
-    #polarity=0
-    #for sentence in blob.sentences:
-    #    polarity += sentence.sentiment.polarity
-    
-    return polarity(str(text))
-
 def polarity(s):
     blob = TextBlob(s)
     polarity=0
     for sentence in blob.sentences:
         polarity += sentence.sentiment.polarity
-    return polarity
+        print(polarity)
+    return [polarity,blob.sentiment_assessments]
 
 def translate(text):
     blob = TextBlob(text)
     lang = blob.detect_language()
     transl=''
     p = 0
-    if lang!='en':
+    sa = []
+    if lang!='en': #selain bahasa inggris masuk kesini
         transl = blob.translate(to='en')
-        p = polar(transl)
+        pol = polarity(str(transl))
+        p = pol[0]
+        sa = pol[1]
     else:
-        p = polarity(blob.sentences)
+        p = polarity(text)[0]
+        sa = blob.sentiment_assessments
 
     return [transl,
             lang,  
@@ -128,7 +125,7 @@ def translate(text):
             blob.word_counts,
             blob.words,
             blob.tokenize(),
-            blob.sentiment_assessments,
+            sa,
             text,
             p]
     '''

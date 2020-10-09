@@ -66,7 +66,7 @@ export const ResultTable =({result})=> {
                 </TableCell>
                 <TableCell >
                     {words.map((w,i) =>
-                    <Badge color={colors(i)}>{w}</Badge>
+                      <Badge color={colors(i)}>{w}</Badge>
                     )} 
                 </TableCell>
             </TableRow>
@@ -82,13 +82,14 @@ export const ResultTable =({result})=> {
                 </TableCell>
             </TableRow> */}
     
+    
             <TableRow key="tags">
                 <TableCell >
                 Tags
               </TableCell>
               <TableCell >
               {tags.map((w,i) =>
-                    <Badge color={colors(i)}>{w}</Badge>
+                    <Badge color={colors(i)}>{w[0]} ({w[1]})</Badge>
                     )} 
               </TableCell>
             </TableRow>
@@ -107,11 +108,41 @@ export const ResultTable =({result})=> {
                 Sentiment Assesment
               </TableCell>
                 <TableCell >
-                    {sentiment_assessments.map((w,i) =>
-                    <Badge color={colors(i)}>{w}</Badge>
-                    )} 
+                  <span>Polarity: <Badge color='primary'>{sentiment_assessments[0]}</Badge></span><br/>
+                  <span>Subjectivity: <Badge color='primary'>{sentiment_assessments[1]}</Badge></span><br/>
+                  <div>Assesment:</div>
+                    {sentiment_assessments[2]!=null?sentiment_assessments[2].map((w,x) =>
+                      <div>
+                        <Badge color='warning'>{w}</Badge><br/>
+                        {/* {
+                          w.map(n =>
+                            <br><span>{n}</span></br>
+                          )
+                        } */}
+                      </div>
+                    ):''} 
+                    
+                    {/* {sentiment_assessments.map((w,i) =>
+                    <Badge color={colors(i)}>{w}
+                    </Badge>
+                    )}  */}
                 </TableCell>
             </TableRow>
+{/* 
+  Sentiment(
+    polarity=0.09090909090909091, 
+    subjectivity=0.26731601731601734, 
+    assessments=[
+      (['new'], 0.13636363636363635, 0.45454545454545453, None), 
+      (['dynamic'], 0.0, 0.16666666666666666, None), 
+      (['currently'], 0.0, 0.4, None), 
+      (['daily'], 0.0, 0.0, None), 
+      (['starting'], 0.0, 0.1, None),
+      (['most'], 0.5, 0.5, None), 
+      (['recently'], 0.0, 0.25, None)
+    ])
+*/}
+
              <TableRow key="token">
             <TableCell >
                 Tokenize

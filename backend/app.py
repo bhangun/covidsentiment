@@ -28,22 +28,24 @@ def handle_submit():
 
 def analisis(text):
     trans = translate(text)
+    #polar = polar(trans[0])
     blob = TextBlob(str(trans[0]))
     #blob = TextBlob(text)
     lang = trans[1]
     transl = ''
-    polarity=0
+    polarity= polar(trans[0])
     sentences = blob.sentences
     
+    print(sentences)
     #if (lang != 'en'):
     #    transl = blob.translate(to='en')
     #    enBlob = transblob(transl)
     #    sentences = enBlob.sentences
     
-    for sentence in sentences:
+    for sentence in blob.sentences:
         polarity += sentence.sentiment.polarity
 
-    percent = round(polarity*100)
+    percent = round(trans[9]*100)
     print(percent)
     result = jsonify({
             "polarity":percent,
@@ -92,20 +94,42 @@ def is_hoax(value):
     else:
         return "Netral"
 
+def polar(text):
+    #print('>>>>>>>>>',text)
+    blob = TextBlob(str(text))
+    #polarity=0
+    #for sentence in blob.sentences:
+    #    polarity += sentence.sentiment.polarity
+    
+    return polarity(blob.sentences)
+
+def polarity(s):
+    polarity=0
+    for sentence in s:
+        polarity += sentence.sentiment.polarity
+    return polarity
+
 def translate(text):
     blob = TextBlob(text)
     lang = blob.detect_language()
     transl=''
+    p = 0
     if lang!='en':
         transl = blob.translate(to='en')
-    
+        p = polar(text)
+    else:
+        p = polarity(blob.sentences)
 
-    return [transl,lang,  blob.tags,
-             blob.noun_phrases,
+    return [transl,
+            lang,  
+            blob.tags,
+            blob.noun_phrases,
             blob.word_counts,
             blob.words,
-           blob.tokenize(),
-            blob.sentiment_assessments,text]
+            blob.tokenize(),
+            blob.sentiment_assessments,
+            text,
+            p]
     '''
     return {
             "tags": blob.tags,

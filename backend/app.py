@@ -6,7 +6,6 @@ import pandas as pd
 # import matplotlib.pyplot as plt
 # from bs4 import BeautifulSoup
 
-
 app = Flask(__name__)
 #CORS(app, resources={r"/api/*": {"origins": "*"}})
 CORS(app)
@@ -22,30 +21,15 @@ def handle_submit():
     if request.method == "POST":
         payload = request.form['payload']
        
-        print(f'payload : {payload}')
-
+        #print(f'payload : {payload}')
         return analisis(payload)
 
 def analisis(text):
     trans = translate(text)
-    #polar = polar(trans[0])
-    #blob = TextBlob(str(trans[0]))
-    #blob = TextBlob(text)
+
     print(trans)
     lang = trans[1]
-    #transl = ''
-    #polarity= polar(trans[0])
-    #sentences = blob.sentences
-    
-    #print(sentences)
-    #if (lang != 'en'):
-    #    transl = blob.translate(to='en')
-    #    enBlob = transblob(transl)
-    #    sentences = enBlob.sentences
-    
-    #for sentence in blob.sentences:
-    #    polarity += sentence.sentiment.polarity
-
+   
     percent = round(trans[9]*100)
     print(percent)
     result = jsonify({
@@ -62,7 +46,6 @@ def analisis(text):
             "tokenize":trans[6],
             "sentiment_assessments":trans[7],
             "translation":trans[8]
-
         })
     return result
 
@@ -128,18 +111,6 @@ def translate(text):
             sa,
             text,
             p]
-    '''
-    return {
-            "tags": blob.tags,
-            "noun_phrases": blob.noun_phrases,
-            "word_counts": blob.word_counts,
-            "words":blob.words,
-            "tokenize":blob.tokenize(),
-            "sentiment_assessments":blob.sentiment_assessments,
-            "translation":transl
-        }
-    '''
-
 
 app.register_blueprint(api, url_prefix='/api')
 

@@ -29,21 +29,21 @@ def handle_submit():
 def analisis(text):
     trans = translate(text)
     #polar = polar(trans[0])
-    blob = TextBlob(str(trans[0]))
+    #blob = TextBlob(str(trans[0]))
     #blob = TextBlob(text)
     lang = trans[1]
-    transl = ''
-    polarity= polar(trans[0])
-    sentences = blob.sentences
+    #transl = ''
+    #polarity= polar(trans[0])
+    #sentences = blob.sentences
     
-    print(sentences)
+    #print(sentences)
     #if (lang != 'en'):
     #    transl = blob.translate(to='en')
     #    enBlob = transblob(transl)
     #    sentences = enBlob.sentences
     
-    for sentence in blob.sentences:
-        polarity += sentence.sentiment.polarity
+    #for sentence in blob.sentences:
+    #    polarity += sentence.sentiment.polarity
 
     percent = round(trans[9]*100)
     print(percent)
@@ -101,11 +101,12 @@ def polar(text):
     #for sentence in blob.sentences:
     #    polarity += sentence.sentiment.polarity
     
-    return polarity(blob.sentences)
+    return polarity(str(text))
 
 def polarity(s):
+    blob = TextBlob(s)
     polarity=0
-    for sentence in s:
+    for sentence in blob.sentences:
         polarity += sentence.sentiment.polarity
     return polarity
 
@@ -116,7 +117,7 @@ def translate(text):
     p = 0
     if lang!='en':
         transl = blob.translate(to='en')
-        p = polar(text)
+        p = polar(transl)
     else:
         p = polarity(blob.sentences)
 

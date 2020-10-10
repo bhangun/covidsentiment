@@ -28,8 +28,8 @@ export default function Components(props) {
   const title = "Sentiment Analysis"
   const subtitle = " Pengembangan Aplikasi Sistem Cerdas Untuk Pendekteksi dan Penangkal Hoaks Seputar Covid-19 Dengan Intelligent Sentiment Analysis dan Intelligent Public Opinion Mining"
 
-  //const url = "http://149.129.245.30:443/api/submit";
-   const url = "http://localhost:5000/api/submit";
+  const url = "http://149.129.245.30:443/api/submit";
+  //const url = "http://localhost:5000/api/submit";
   const [change, setChange] = useState(false);
   const [result, setResult] = useState({
     "polarity":0.0,

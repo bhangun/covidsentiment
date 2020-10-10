@@ -66,7 +66,7 @@ export const ResultTable =({result})=> {
                 </TableCell>
                 <TableCell >
                     {words.map((w,i) =>
-                      <Badge color={colors(i)}>{w}</Badge>
+                      <Badge key={'b'+i} color={colors(i)}>{w}</Badge>
                     )} 
                 </TableCell>
             </TableRow>

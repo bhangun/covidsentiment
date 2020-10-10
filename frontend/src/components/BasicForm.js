@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const BasicForm=({ success, handleInput,handleSubmit }) =>{
+export const BasicForm=({ success, type, handleInput,handleSubmit,...props }) =>{
   const classes = useStyles();
   const [form, setForm] = useState({ payload: "" });
 
@@ -31,70 +31,15 @@ export const BasicForm=({ success, handleInput,handleSubmit }) =>{
     e.preventDefault();
     const data = new FormData();
     data.set("payload", form.payload);
+    data.set("type", type);
+    data.set("url", form.payload);
     handleSubmit(data)
   }
-  // const url = "http://149.129.245.30/api/submit";
-  /* const url = "http://localhost:5000/api/submit";
-  
-  
-  const [result, setResult] = useState({
-    "polarity":0.0,
-    "positive":0.0,
-    "negative":0.0,
-    "isHoax": "",
-    "tags": [],
-    "noun_phrases": [],
-    "word_counts": {},
-    "words":[],
-    "sentiment_assessments":[],
-    "tokenize":[],
-    "language":"",
-    "translation":""
-  });
 
-  const [success, setSuccess] = useState(null); */
-
-  /* function handleInput(e) {
-    setForm({ ...form, payload: e.target.value });
+  function getType(){
+    return type==='TEXT'? 'Masukan Text...':'http://.....'
   }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const data = new FormData();
-    data.set("payload", form.payload);
-
-    axios({
-      method: "post",
-      url: url,
-      data: data,
-    })
-      .then(function (response) {
-        const res = response.data
-       
-        setResult({
-            "polarity":res.polarity,
-            "positive":res.positive,
-            "negative":res.negative,
-            "isHoax": res.isHoax,
-            "tags": res.tags,
-            "noun_phrases": res.noun_phrases,
-            "word_counts": res.word_counts,
-            "words":res.words,
-            "sentiment_assessments":res.sentiment_assessments,
-            "tokenize":res.tokenize,
-            "language": res.language,
-            "translation":res.translation
-        })
-        console.log('>>>>>>>>>>>>>',result);
-        setSuccess(true);
-      })
-      .catch(function (response) {
-        setResult(response)
-        setSuccess(false);
-        console.log(response);
-      });
-  } */
-
+ 
   function Alerting() {
     if (success === true) {
       return <Alert severity="success">Data terkirim!</Alert>;
@@ -116,7 +61,7 @@ export const BasicForm=({ success, handleInput,handleSubmit }) =>{
               rowsMax={4}
               name="payload"
               id="payload"
-              label="Masukan teks... "
+              label={getType()}
               fullWidth={false}
               value={form.payload}
               onChange={_handleInput}

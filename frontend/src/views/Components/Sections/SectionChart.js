@@ -8,17 +8,6 @@ import GridContainer from "../../../components/Grid/GridContainer.js";
 import GridItem from "../../../components/Grid/GridItem.js";
 import ResultTable from './ResultTable.js';
 
-/* const data = [
-  {
-    name: 'Page A', positive: 4000, negative: 2400, neutral: 2400,
-  },
-  {
-    name: 'Page B', positive: 2000, negative: 200, neutral: 240,
-  },
-  {
-    name: 'Page C', positive: -4000, negative: 400, neutral: 200,
-  },
-]; */
 
 export const ResultChart=({result, ...props})=> {
   const { polarity, 
@@ -32,10 +21,9 @@ export const ResultChart=({result, ...props})=> {
   return (
     <div >
       <Divider variant='middle'/>
-      {/* <h2 style={{marginLeft:"30px"}}>Hasil:</h2> */}
       <GridContainer container justify="center" >
         <div >
-          <span><div style={{fontSize:30}}>Polarity</div>
+          <span><div style={{fontSize:30}}>Total Polarity</div>
             <Badge color="primary" >
               <div style={{fontSize:30}}>{polarity}</div>
             </Badge> 

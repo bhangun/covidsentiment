@@ -36,28 +36,17 @@ export const SectionPills =({ success,handleInput,handleSubmit,...props})=> {
                     tabButton: "Text",
                     tabIcon: NotesIcon,
                     tabContent: (
-                      <BasicForm handleInput={handleInput} handleSubmit={handleSubmit} success={success}/>
+                      <BasicForm type='TEXT' handleInput={handleInput} handleSubmit={handleSubmit} success={success}/>
                     )
                   },
                   {
                     tabButton: "URL",
                     tabIcon: LanguageIcon,
                     tabContent: (
-                      <BasicForm handleInput={handleInput} handleSubmit={handleSubmit} success={success}/>
+                      <BasicForm type='URL' handleInput={handleInput} handleSubmit={handleSubmit} success={success}/>
                     )
                   },
-                  /* {
-                    tabButton: "Tasks",
-                    tabIcon: List,
-                    tabContent: (
-                      <span>
-                        <p>
-                          Collaboratively 
-                        </p>
-                       
-                      </span>
-                    )
-                  } */
+                 
                 ]}
               />
             </GridItem>

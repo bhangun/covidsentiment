@@ -1,5 +1,5 @@
-from textblob import TextBlob
-import tweepy
+# from textblob import TextBlob
+# import tweepy
 # import pandas as pd
 # import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
@@ -72,8 +72,24 @@ def webcapture(url):
     session = requests.Session() #setup session
     data = session.get(url, headers=headers) #scrape the data
     soup = BeautifulSoup(data.text, 'html.parser') #parse the data
-    return soup #return the parsed data
+    ext= soup.extract() #return the parsed data
+    ii = _remove_attrs(soup)
+    #i2 = soup.clear()
+    p = soup.find_all('p')
+    gettext =soup.get_text()
+    tt=''
+    for d in p:
+        tt += extract(str(d))
+    return tt #,s.get_text()
 
+def extract(text):
+    s= BeautifulSoup(text, 'html.parser')
+    return s.get_text()
+
+def _remove_attrs(soup):
+    for tag in soup.findAll(True): 
+        tag.attrs = None
+    return soup
 # analisis('bob anak baik')
 def translate(text):
     blob = TextBlob(text)
@@ -93,7 +109,19 @@ def translate(text):
     print(en)
     return en
 
+name = 'blogspider'
+start_urls = ['https://blog.scrapinghub.com']
+
+def parse(self, response):
+    for title in response.css('.post-header>h2'):
+        yield {'title': title.css('a ::text').get()}
+
+    for next_page in response.css('a.next-posts-link'):
+        yield response.follow(next_page, self.parse)
+
 #webcapture('https://requests.readthedocs.io/en/master/')
 
 #translate('aku baik')
-analisis('dia dan aku itu anak baik bukan anak jelek')
+#analisis('dia dan aku itu anak baik bukan anak jelek')
+
+print(webcapture('https://www.kompas.com/tren/read/2020/10/06/104500965/apa-itu-omnibus-law-cipta-kerja-isi-dan-dampaknya-bagi-buruh?page=all'))

@@ -1,10 +1,11 @@
 from flask import Flask, Blueprint, request, jsonify
 from flask_cors import CORS
 from  textblob import TextBlob
-import tweepy
-import pandas as pd
+#import tweepy
+#import pandas as pd
 # import matplotlib.pyplot as plt
-# from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
+import requests
 
 app = Flask(__name__)
 #CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -20,9 +21,16 @@ def handle_submit():
     print(request.form['payload'])
     if request.method == "POST":
         payload = request.form['payload']
-       
-        #print(f'payload : {payload}')
-        return analisis(payload)
+        
+        # text_type = TEXT | URL 
+        text_type = request.form['type']
+        url = request.form['url']
+        print(f'payload : {payload}')
+        print(f'text : {text_type}')
+        print(f'url : {url}')
+
+        if text_type=='TEXT': return analisis(payload) 
+        else: return analisis(webcapture(url))
 
 def analisis(text):
     trans = translate(text)
@@ -48,6 +56,25 @@ def analisis(text):
             "translation":trans[8]
         })
     return result
+
+def webcapture(url):
+    headers = {
+    # pretend I am a browser
+    'User-Agent': 'Mozilla/5.0',
+    }
+    
+    session = requests.Session() #setup session
+    data = session.get(url, headers=headers) #scrape the data
+    soup = BeautifulSoup(data.text, 'html.parser') #parse the data
+    p = soup.find_all('p')
+    tt=''
+    for d in p:
+        tt += extract(str(d))
+    return tt
+
+def extract(text):
+    s= BeautifulSoup(text, 'html.parser')
+    return s.get_text()
 
 def posneg(value):
     if value > 0:
